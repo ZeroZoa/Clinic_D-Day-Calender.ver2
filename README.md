@@ -12,7 +12,6 @@
 ## 개발 도구
 <div align="center">
   <img src="https://img.shields.io/badge/VSCode-092E20?style=flat&logo=VSCode&logoColor=#F05032"/>
-  <img src="https://img.shields.io/badge/Netlify-092E20?style=flat&logo=Netlify&logoColor=#00C7B7"/>
 </div>
 
 ## Email
