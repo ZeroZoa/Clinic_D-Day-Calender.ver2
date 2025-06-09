@@ -27,11 +27,6 @@ roh100438@gmail.com
   가독성, 편의성을 개선하였습니다.
 </div>
 
-<div align="center">
-  <a href="https://ghclinic2.netlify.app">
-    <img src="https://img.shields.io/badge/Visit%20Website-00C7B7?style=for-the-badge&logo=netlify&logoColor=white"/>
-  </a>
-</div>
 
 <br></br>
 
