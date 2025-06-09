@@ -19,11 +19,12 @@ roh100438@gmail.com
 
 
 
-## 2023.6.27
+## 2025.6.9
 <div align="center">
-  자바스크립트를 처음 배우고 개발한 웹 서비스입니다.<br></br>
   제가 아르바이트를 하는 병원에서 환자가 받아가야할 처방약의 갯수를 계산하기 위한 디데이캘린더입니다.<br></br>
   달력의 날짜를 선택하면 오늘로부터 디데이가 계산되며, 용량에 맞춰 약의 갯수가 결정됩니다.<br></br>
+  기존 Version은 웹을 통해 배포했지만, 이번에는 유지보수 및 배포 문제를 해결하기 위해 윈도우 네이티브로 만들었습니다.<br></br>
+  가독성, 편의성을 개선하였습니다.
 </div>
 
 <div align="center">
@@ -34,6 +35,7 @@ roh100438@gmail.com
 
 <br></br>
 
-![스크린샷 2025-03-04 오전 10 34 37](https://github.com/user-attachments/assets/b98437af-dcca-4d2f-b0b6-5c57c3d7570d)
+![image](https://github.com/user-attachments/assets/240ff4e0-4b3e-4331-b818-837abfbde8a8)
+
 
 
