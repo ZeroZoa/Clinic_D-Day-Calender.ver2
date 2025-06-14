@@ -30,7 +30,8 @@ roh100438@gmail.com
 
 <br></br>
 
-![image](https://github.com/user-attachments/assets/240ff4e0-4b3e-4331-b818-837abfbde8a8)
+<img width="384" alt="스크린샷 2025-06-09 오후 5 41 54" src="https://github.com/user-attachments/assets/361a1c90-f270-42f0-abd3-87ab3e3a0898" />
+
 
 
 
