@@ -11,7 +11,8 @@
 
 ## 개발 도구
 <div align="center">
-  <img src="https://img.shields.io/badge/VSCode-092E20?style=flat&logo=VSCode&logoColor=#F05032"/>
+  <img src="https://img.shields.io/badge/VSCODE-092E20?style=flat&logo=VSCODE&logoColor=#F05032"/>
+  <img src="https://img.shields.io/badge/flutter-20232a.svg?style=for-the-badge&logo=flutter&logoColor=61DAFB" />
 </div>
 
 ## Email
