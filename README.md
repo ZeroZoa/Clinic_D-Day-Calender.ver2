@@ -12,7 +12,7 @@
 ## 개발 도구
 <div align="center">
   <img src="https://img.shields.io/badge/VSCODE-092E20?style=flat&logo=VSCODE&logoColor=#F05032"/>
-  <img src="https://img.shields.io/badge/flutter-20232a.svg?style=for-the-badge&logo=flutter&logoColor=61DAFB" />
+  <img src="https://img.shields.io/badge/VSCode-2C2C32.svg?style=for-the-badge&logo=visual-studio-code&logoColor=22ABF3" />&nbsp
 </div>
 
 ## Email
