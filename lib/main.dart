@@ -86,7 +86,7 @@ class _DDayCalculatorPageState extends State<DDayCalculatorPage> {
 
   @override
   Widget build(BuildContext context) {
-    // 시작일과 종료일 간의 일 수 차이 계산
+    // 시작일과 종료일 간의 일 수 차이 계산(오늘도 포함)
     final int dDay = _endDate.difference(_startDate).inDays + 1;
 
     return Scaffold(
@@ -158,6 +158,7 @@ class _DDayCalculatorPageState extends State<DDayCalculatorPage> {
                   ],
                 ),
                 //종료일 파트 끝
+                //디데이 파트 시작
                 Padding(
                     padding: const EdgeInsets.only(left: 20),
                   child:Container(
@@ -183,13 +184,15 @@ class _DDayCalculatorPageState extends State<DDayCalculatorPage> {
                 ),
               ],
             ),
+            //디데이 파트 끝
+            //단위 별 용량 파트 시작
             Padding(
               padding: const EdgeInsets.only(top: 10, left: 15, right: 20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   //단위 인디케이터
-                  _buildUnitContainer('2단위', dDay * 0.06666666667, [Colors.amber.shade100, Colors.amber.shade50], 2, context),
+                  _buildUnitContainer('2.5단위', dDay * 0.08333333333, [Colors.amber.shade100, Colors.amber.shade50], 2.5, context),
                   _buildUnitContainer('3단위', dDay * 0.1, [Colors.orange.shade100, Colors.orange.shade50],3, context),
                   _buildUnitContainer('4단위', dDay * 0.125, [Colors.green.shade100, Colors.green.shade50], 4, context),
                   _buildUnitContainer('4.3단위', dDay * 0.1428571429, [Colors.teal.shade100, Colors.teal.shade50], 4.3, context),
@@ -201,7 +204,7 @@ class _DDayCalculatorPageState extends State<DDayCalculatorPage> {
                   //처방 멘트 복사 버튼
                   Row(
                     children: [
-                      const SizedBox(width: 280),
+                      const SizedBox(width: 181),
                       ElevatedButton.icon(
                         onPressed: () {
                           Clipboard.setData(const ClipboardData(text: '호르몬 처방으로 아이동반 내원 D C'));
@@ -223,7 +226,7 @@ class _DDayCalculatorPageState extends State<DDayCalculatorPage> {
                       ),
                     ],
                   )
-
+                  //단위별 용량 파트 및 클립보드 복사 끝
                 ],
               ),
             ),
@@ -235,109 +238,91 @@ class _DDayCalculatorPageState extends State<DDayCalculatorPage> {
 }
 
 Widget _buildUnitContainer(String label, double value, List<Color> gradientColors, double degree, BuildContext context) {
-  return Container(
-    margin: const EdgeInsets.symmetric(vertical: 5),
-    width: 400,
-    padding: const EdgeInsets.all(8),
-    decoration: BoxDecoration(
-      gradient: LinearGradient(
-        colors: gradientColors,
-        begin: Alignment.topLeft,
-        end: Alignment.bottomRight,
-      ),
-      borderRadius: BorderRadius.circular(12),
-    ),
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        // 좌측: 단위 라벨을 고정 너비로 설정 (가변 길이 대응)
-        SizedBox(
-          width: 90,
-          child: Text(
-            label,
-            style: const TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-              fontFeatures: [FontFeature.tabularFigures()], // 숫자폭 일정
+  return Row(
+    children: [
+      TextButton( // 수정: Container를 버튼으로 대체
+        onPressed: () {
+          String degreeStr = (degree % 1 == 0) ? degree.toInt().toString() : degree.toString();
+          Clipboard.setData(ClipboardData(
+            text: '\n호르몬: 개 ($degreeStr단위) 보유중\n*호르몬: \n처방부탁드려요 D C'
+          ));
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('$degreeStr 먹는 약X 클립보드에 복사되었습니다')),
+          );
+        },
+        style: TextButton.styleFrom( // 수정: 버튼 스타일 설정
+          padding: EdgeInsets.zero, // 내부 Container의 패딩 유지
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        ),
+        child: Container(
+          margin: const EdgeInsets.symmetric(vertical: 5),
+          width: 220,
+          padding: const EdgeInsets.all(8),
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: gradientColors,
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
             ),
+            borderRadius: BorderRadius.circular(16),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(
+                width: 90,
+                child: Text(
+                  label,
+                  style: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    fontFeatures: [FontFeature.tabularFigures()], // 숫자폭 일정
+                    color: Colors.black,
+                  ),
+                ),
+              ),
+              Text(
+                '→   ${value.toStringAsFixed(1)}',
+                style: const TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black87,
+                ),
+              ),
+            ],
           ),
         ),
-        // 우측: 값 표시
-        Text(
-          '→   ${value.toStringAsFixed(3)}',
-          style: const TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-            color: Colors.black87,
-          ),
-        ),
-        SizedBox(
-          width: 10,
-        ),
-        Expanded(
-          child: Align(
-            alignment: Alignment.centerRight,
-            child: Row(
-              mainAxisSize: MainAxisSize.min, // 버튼 크기만큼만 Row가 차지하게
-                children: [
-                  ElevatedButton.icon(
-                    onPressed: () {
-                      String degreeStr = (degree % 1 == 0) ? degree.toInt().toString() : degree.toString();
-                      Clipboard.setData(ClipboardData(
-                          text: '단위/이름: $degreeStr/\n처방수량:\n보유수량:\n처방해주세요. D C'
-                      ));
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text('$degreeStr 먹는 약X 클립보드에 복사되었습니다')),
-                      );
-                    },
-                    icon: const Icon(Icons.close, size: 16), // 아이콘 크기 줄임
-                    label: const Text(
-                      '먹는 약',
-                      style: TextStyle(fontSize: 12), // 폰트 크기 줄임
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.indigo,
-                      foregroundColor: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 1),
-                      textStyle: const TextStyle(fontSize: 8), // 버튼 전체 폰트 크기(예비)
-                    ),
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  ElevatedButton.icon(
-                    onPressed: () {
-                      String degreeStr = (degree % 1 == 0) ? degree.toInt().toString() : degree.toString();
-                      Clipboard.setData(ClipboardData(
-                          text: '단위/이름: $degreeStr/\n처방수량:\n보유수량:\n먹는 약:\n처방해주세요. D C'
-                      ));
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text('$degreeStr 먹는 약O 클립보드에 복사되었습니다')),
-                      );
-                    },
-                    icon: const Icon(Icons.radio_button_unchecked, size: 14), // 아이콘 크기 줄임
-                    label: const Text(
-                      '먹는 약',
-                      style: TextStyle(fontSize: 12), // 폰트 크기 줄임
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.redAccent,
-                      foregroundColor: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 1),
-                      textStyle: const TextStyle(fontSize: 8), // 버튼 전체 폰트 크기(예비)
-                    ),
-                  ),
-                ]
+      ),
+      SizedBox(
+        width: 10,
+      ),
+      ElevatedButton.icon(
+        onPressed: () {
+          String degreeStr = (degree % 1 == 0) ? degree.toInt().toString() : degree.toString();
+          Clipboard.setData(ClipboardData(
+            text: ' \n호르몬: 개 ($degreeStr단위)\n먹는약: 개 보유중\n*호르몬: \n*먹는약: \n처방부탁드려요 D C'
             )
+          );
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('$degreeStr 먹는 약O 클립보드에 복사되었습니다')),
+          );
+        },
+        icon: const Icon(Icons.radio_button_unchecked, size: 14), // 아이콘 크기 줄임
+        label: const Text(
+          '먹는 약',
+          style: TextStyle(fontSize: 12), // 폰트 크기 줄임
+        ),
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.redAccent,
+          foregroundColor: Colors.white,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
           ),
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 1),
+          textStyle: const TextStyle(fontSize: 8), // 버튼 전체 폰트 크기(예비)
         )
-      ],
-    ),
+      ),
+    ],
   );
 }
+
