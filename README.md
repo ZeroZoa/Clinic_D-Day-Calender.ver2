@@ -6,7 +6,7 @@
 
 ## 기술 스택
 <div align="center">
-
+  <img src="https://img.shields.io/badge/flutter-20232a.svg?style=for-the-badge&logo=flutter&logoColor=61DAFB" />
 </div>
 
 ## 개발 도구
