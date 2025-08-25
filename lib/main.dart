@@ -244,7 +244,7 @@ Widget _buildUnitContainer(String label, double value, List<Color> gradientColor
         onPressed: () {
           String degreeStr = (degree % 1 == 0) ? degree.toInt().toString() : degree.toString();
           Clipboard.setData(ClipboardData(
-            text: '\n호르몬: 개 ($degreeStr단위) 보유중\n*호르몬: \n처방부탁드려요 D C'
+            text: 'D C ($degreeStr단위) > 호르몬: 개 처방부탁드려요. (호르몬: 개  보유중)'
           ));
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text('$degreeStr 먹는 약X 클립보드에 복사되었습니다')),
@@ -300,7 +300,7 @@ Widget _buildUnitContainer(String label, double value, List<Color> gradientColor
         onPressed: () {
           String degreeStr = (degree % 1 == 0) ? degree.toInt().toString() : degree.toString();
           Clipboard.setData(ClipboardData(
-            text: ' \n호르몬: 개 ($degreeStr단위)\n먹는약: 개 보유중\n*호르몬: \n*먹는약: \n처방부탁드려요 D C'
+            text: 'D C ($degreeStr단위) > 호르몬: 개 먹는 약: 처방부탁드려요. (호르몬: 개  , 먹는 약: 보유중)'
             )
           );
           ScaffoldMessenger.of(context).showSnackBar(
